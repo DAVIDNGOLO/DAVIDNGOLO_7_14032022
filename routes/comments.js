@@ -11,7 +11,7 @@ const router = express.Router();
 //Chaque route à son CRUD (get, post, delete, put) avec son chemin et ses droits
 router.post("/", auth, multer, postsCtrl.createComments);
 router.delete("/:id", auth, postsCtrl.deleteComments);
-router.get("/:id", auth, postsCtrl.getOneComments);
+
 
 
 module.exports = router;

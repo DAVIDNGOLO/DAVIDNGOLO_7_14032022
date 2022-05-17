@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
+const commentsRoutes = require("./routes/comments");
 //importation de l'instance sequelize
 const { sequelize, User } = require("./models");
 //pour creer une application express
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/posts", postsRoutes);
 app.use("/api/auth", userRoutes);
+app.use('/api/comments', commentsRoutes);
 
 //creation de tables dans notre database en fonction des models que nous avons
 app.listen({ port: 5000 }, async () => {
