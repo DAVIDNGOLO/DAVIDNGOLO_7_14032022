@@ -1,8 +1,9 @@
+
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('./index');
 const User = require('./user');
 
-const Post = sequelize.define('Post', {
+const Comment = sequelize.define('Comment', {
   
     content: {
       type: DataTypes.STRING,
@@ -10,6 +11,7 @@ const Post = sequelize.define('Post', {
     },
     imagesUrl: {
       type: DataTypes.STRING,
+      
     },
     likes:{
       type: DataTypes.INTEGER,
@@ -17,9 +19,9 @@ const Post = sequelize.define('Post', {
 
   }, {
     sequelize,
-    tableName:'post',
-    modelName: 'Post',
+    tableName:'comment',
+    modelName: 'Comment',
   });
-  User.hasMany(Post);
-  Post.belongsTo(User);
-  module.exports = Post;
+  User.hasMany(Comment);
+  Comment.belongsTo(User);
+  module.exports = Comment;

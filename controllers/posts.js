@@ -6,7 +6,8 @@ exports.createPosts = (req, res, next) => {
   //delete postsObject._id;
   const posts = new Posts({
     ...postsObject,
-    imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+   imagesUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+    
     
   }); //les images et textes doivent etre traité différement, elles sont appelées via leur URI
   
@@ -24,18 +25,18 @@ exports.modifyPosts = (req, res, next) => {
     // Si la modification contient une image => Utilisation de l'opérateur ternaire comme structure conditionnelle.
     Posts.findOne({
       where: {
-        postId: req.params.id
+        id: req.params.id
       }
       
     }).then((posts) => {
       // On supprime l'ancienne image du serveur
-      const filename = posts.imageUrl.split('/images/')[1]
+      const filename = posts.imagesUrl.split('/images/')[1]
       fs.unlinkSync(`images/${filename}`)
     }),
     postsObject = {
       // On modifie les données et on ajoute la nouvelle image
       ...JSON.parse(req.body.post),
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${
+      imagesUrl: `${req.protocol}://${req.get('host')}/images/${
         req.file.filename
       }`,
     }
@@ -45,13 +46,15 @@ exports.modifyPosts = (req, res, next) => {
       ...req.body
     }
   )
-  Posts.updateOne(
+  Posts.update(
     // On applique les paramètre de sauceObject
-    {
-      _id: req.params.id
+    { 
+        ...postsObject,
+       imagesUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
     }, {
-      ...postsObject,
-      _id: req.params.id
+      //...postsObject,
+
+     where:{id: req.params.id},
     }
   )
   .then(() => res.status(200).json({
@@ -64,12 +67,13 @@ exports.modifyPosts = (req, res, next) => {
    
 
 exports.deletePosts = (req, res, next) => {
-  Posts.findOne({ _id: req.params.id })
+  Posts.findOne({ where: { id: req.params.id} })
+  
     .then((posts) => {
-      const filename = posts.imageUrl.split("/images/")[1]; //Pour la suppression des images, utilisation de Split
+      const filename = posts.imagesUrl.split("/images/")[1]; //Pour la suppression des images, utilisation de Split
       fs.unlink(`images/${filename}`, () => {
         posts
-          .deleteOne({ _id: req.params.id })
+          .destroy({ where: {id: req.params.id} })
           .then(() => res.status(200).json({ message: "Objet supprimé !" }))
           .catch((error) => res.status(400).json({ error }));
       });
@@ -84,7 +88,7 @@ exports.getOnePosts = (req, res, next) => {
 };
 exports.getAllPosts = (req, res, next) => {
   //appel de toutes les sauces avec request, result et next pour passer au prochain controller
-  Posts.find() //Demande à la base de données les sauces avec find
+  Posts.findAll() //Demande à la base de données les sauces avec find
     .then((posts) => res.status(200).json(posts)) // then si le retour est ok avec le code 200
     .catch((error) => res.status(400).json({ error })); // catch si le retour est ko avec le code 400
 };

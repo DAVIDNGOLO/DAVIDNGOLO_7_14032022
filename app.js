@@ -1,10 +1,11 @@
+//importation de express
 const express = require("express");
 const path = require("path");
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
 //importation de l'instance sequelize
 const { sequelize, User } = require("./models");
-
+//pour creer une application express
 const app = express();
 app.use(express.json());
 
@@ -32,5 +33,5 @@ app.listen({ port: 5000 }, async () => {
 
 
 
-
+//exportation de app js pour pouvoir l'utiliser depuis un autre fichier
 module.exports = app;
