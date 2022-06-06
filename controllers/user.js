@@ -54,3 +54,27 @@ exports.login = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
+
+exports.deleteUser = (req, res, next) => {
+  User.findOne({ where: { id: req.params.id }})  
+    .then(() => {
+      user.destroy({ where: { id: req.params.id }}) 
+                  .then((user) => res.status(200).json(user)
+                  ({ message: 'Compte supprimé' }))
+                  .catch(error => res.status(400).json({ error }));
+              })
+          .catch (error => res.status(500).json({ error }));
+};
+
+/*exports.updateUser = (req, res, next) => {
+  User.findOne({ where: { id: req.params.id }})
+  .then(() => {
+      user.update({ where: { id: (req.params.id)}) 
+                  .then((user) => res.status(200).json(user)
+                  ({ message: 'Compte supprimé' }))
+                  .catch(error => res.status(400).json({ error }));
+              })
+          .catch (error => res.status(500).json({ error }));
+};
+  
+*/
