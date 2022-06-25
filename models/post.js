@@ -3,7 +3,6 @@ const sequelize = require('./index');
 const User = require('./user');
 
 const Post = sequelize.define('Post', {
-  
     content: {
       type: DataTypes.STRING,
       
@@ -14,6 +13,16 @@ const Post = sequelize.define('Post', {
     likes:{
       type: DataTypes.INTEGER,
     }, 
+    dislikes:{
+      type: DataTypes.INTEGER,
+    },
+    usersLiked: { 
+      type: Sequelize.JSON, 
+     },
+    usersDisliked: { 
+    type: Sequelize.JSON,
+   },
+
 
   }, {
     sequelize,

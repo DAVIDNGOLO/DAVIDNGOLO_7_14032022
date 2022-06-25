@@ -94,11 +94,11 @@ exports.getAllPosts = (req, res, next) => {
 };
 
 exports.createLike = (req, res) => {
-  console.log(req.body.like);
+  console.log("like" + req.body.like);
+  console.log(req.params.id);
   //Récupération d'une seule Sauce avec 'findOne'
-  Posts.findOne({
-    _id: req.params.id,
-  })
+  Posts.findOne({ where: { id: req.params.id} })
+  
     .then((posts) => {
       // la personne n'aime pas la sauce
       if (req.body.like === -1) {

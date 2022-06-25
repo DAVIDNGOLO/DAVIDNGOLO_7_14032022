@@ -55,7 +55,7 @@ exports.login = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-exports.deleteUser = (req, res, next) => {
+/*exports.deleteUser = (req, res, next) => {
   User.findOne({ where: { id: req.params.id }})  
     .then(() => {
       user.destroy({ where: { id: req.params.id }}) 
