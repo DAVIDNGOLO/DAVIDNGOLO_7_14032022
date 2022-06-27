@@ -1,4 +1,4 @@
-# my-first-vue-cli-app
+# groupomania
 
 ## Project setup
 ```
