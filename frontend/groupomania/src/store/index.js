@@ -1,7 +1,12 @@
 
 import { createStore} from 'vuex'
-//create new store instance
 
+const axios = require('axios');
+const instance = axios.create({
+    baseURL: 'http://localhost:5000/api/auth/'
+  });
+  
+//create new store instance
 const store = createStore ({
     state: {
 
@@ -9,10 +14,19 @@ const store = createStore ({
     actions: {
         createAccount: ({ commit }, userInfos) => {
         commit;
-        console.log(userInfos);
+        instance.post('/createAccount', userInfos)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         }
     }
 
 })
 
 export default store;
+
+
+

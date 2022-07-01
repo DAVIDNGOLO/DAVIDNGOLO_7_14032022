@@ -1,10 +1,12 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+
+
+
+import { createWebHistory, createRouter } from "vue-router";
 import HomeView from '../views/HomeView.vue'
 import ProfilView from '../views/ProfilView.vue'
 import SigninView from '../views/SigninView.vue'
 
-Vue.use(VueRouter)
+
 
 const routes = [
 
@@ -28,8 +30,9 @@ const routes = [
   }
 ]
 
-const router = new VueRouter({
-  routes
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
 })
 
 export default router
