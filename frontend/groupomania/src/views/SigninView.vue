@@ -13,18 +13,18 @@
       <h2>Email</h2>
 
       <div>
-        <input type="email" >
+        <input v-model="email" type="email" >
       </div>
     </div>
     <div class="signinConnexion">
       <h2>Password</h2>
 
       <div>
-        <input type="password" >
+        <input v-model="password" type="password" >
       </div>
     </div>
     <div>
-      <input class="Bouton"
+      <input class="Bouton" :class="{'button--disabled' : !validatedFields}"
        type="button"
        value="Connexion">
     </div>
@@ -32,12 +32,42 @@
 
 
     </div>
+    <div id="app">
+    <nav>
+      Pas de compte ?<router-link to="/">Inscription </router-link> 
+    </nav>
+    <router-view/>
+  </div>
   </div>
 
 </template>
 
 
 <script>
+export default{
+  name: "SigninView",
+  data: function () {
+    return {
+      mode: 'signinview',
+      email: '',
+      password: '',
+
+
+    }
+  },
+  computed: {
+    validatedFields: function () {
+      
+        if (this.email != "" && this.password != ""){
+          return true;
+        }else{
+          return false;
+        
+      }
+    }
+  },
+  
+}
 </script>
 
 <style scoped>
@@ -79,6 +109,9 @@ input {
     background-color: rgb(220, 62, 62);
     box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
                 inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+.button--disabled{
+  color: grey;
 }
 .styled:hover {
     background-color: rgba(255, 0, 0, 1);

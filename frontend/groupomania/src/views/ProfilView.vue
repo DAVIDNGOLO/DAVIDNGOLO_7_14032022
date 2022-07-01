@@ -24,7 +24,7 @@
       </div>
     </div>
     <div>
-      <input class="Bouton"
+      <input class="Bouton" 
        type="button"
        value="Déconnexion">
     </div>

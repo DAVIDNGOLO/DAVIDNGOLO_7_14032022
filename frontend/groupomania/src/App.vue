@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">Inscription /</router-link> 
-      <router-link to="/signin"> Connexion /</router-link>
-      <router-link to="/profil"> Profil</router-link>
+      
     </nav>
     <router-view/>
   </div>

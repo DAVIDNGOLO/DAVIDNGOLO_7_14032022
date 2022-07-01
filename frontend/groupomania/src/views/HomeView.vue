@@ -13,25 +13,25 @@
     <div>
       <h2>Pseudo</h2>
       <div>
-        <input type="email" >
+        <input v-model="pseudo" type="pseudo" >
       </div>
     </div>
     <div class="signinConnexion">
       <h2>Email</h2>
 
       <div>
-        <input type="email" >
+        <input v-model="email" type="email" >
       </div>
     </div>
     <div class="signinConnexion">
       <h2>Password</h2>
 
       <div>
-        <input type="password" >
+        <input v-model="password" type="password" >
       </div>
     </div>
     <div>
-      <input class="Bouton"
+      <input @click="createAccount()" class="Bouton" :class="{'button--disabled' : !validatedFields}"
        type="button"
        value="S'inscrire">
     </div>
@@ -39,11 +39,54 @@
 
 
     </div>
+    <div id="app">
+    <nav>
+      
+      Déjà inscrit ?<router-link to="/signin"> Connexion </router-link>
+      
+    </nav>
+    <router-view/>
   </div>
+  </div>
+  
 </template>
 
 <script>
-// @ is an alias to /src
+export default{
+  name: "HomeView",
+  data: function () {
+    return {
+      mode: 'homeview',
+      pseudo: '',
+      email: '',
+      password: '',
+
+
+    }
+  },
+  computed: {
+    validatedFields: function () {
+      
+        if (this.pseudo != "" && this.email != "" && this.password != ""){
+          return true;
+        }else{
+          return false;
+        
+      }
+    }
+  },
+  methods:{
+    createAccount: function (){
+      this.$store.dispatch('createAccount', {
+        pseudo: this.pseudo,
+        email: this.email,
+        password: this.password,
+      })
+    }
+  }
+  
+}
+
 </script>
 <style >
 img {
@@ -72,6 +115,7 @@ input {
 .Bouton {
   margin-top: 3rem;
     border: 0;
+    
     line-height: 2;
     padding: 0px 30px;
     font-size: 0.6rem;
@@ -83,7 +127,12 @@ input {
     background-color: rgb(220, 62, 62);
     box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
                 inset -2px -2px 3px rgba(0, 0, 0, .6);
+
 }
+.button--disabled{
+  color: grey;
+}
+
 .styled:hover {
     background-color: rgba(255, 0, 0, 1);
 }
