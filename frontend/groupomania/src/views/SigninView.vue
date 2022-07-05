@@ -24,9 +24,11 @@
       </div>
     </div>
     <div>
-      <input class="Bouton" :class="{'button--disabled' : !validatedFields}"
+      
+      <input @click="login()" class="Bouton" :class="{'button--disabled' : !validatedFields}"
        type="button"
        value="Connexion">
+       <span v-if="status == 'loading'"> Connexion en cours... </span>
     </div>
     <div>
 
@@ -44,6 +46,8 @@
 
 
 <script>
+import { mapState } from 'vuex'
+
 export default{
   name: "SigninView",
   data: function () {
@@ -64,8 +68,24 @@ export default{
           return false;
         
       }
-    }
+    },
+    ...mapState(['status'])
   },
+  methods: {
+  login: function(){
+    const self = this;
+      this.$store.dispatch('login', {
+        email: this.email,
+        password: this.password,
+      }).then(function (){
+      self.$router.push('/profilView');
+      }, function (error){
+        console.log(error);
+      } )
+    }
+  }
+  
+
   
 }
 </script>

@@ -3,26 +3,11 @@
     <img alt="groupomania logo" src="../assets/icon-left-font.png" />
     <div class="logoSignin">
       <p class="acceuilSignin">
-        Bienvenue {{ nomUtilisateur}}
+        Bienvenue "nomUtilisateur"
       </p>
     </div>
-    <div>
-      <h1>Profil {{ nomUtilisateur}}</h1>
-    </div>
-    <div class="signinConnexion">
-      <h2>Email</h2>
-
-      <div>
-        <input type="email" >
-      </div>
-    </div>
-    <div class="signinConnexion">
-      <h2>Password</h2>
-
-      <div>
-        <input type="password" >
-      </div>
-    </div>
+    
+    
     <div>
       <input class="Bouton" 
        type="button"
@@ -36,6 +21,29 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+export default {
+  name: 'ProfilView',
+  mounted: function () {
+    console.log(this.$store.state.user);
+    if (this.$store.state.user.userId == -1) {
+      this.$router.push('/');
+      return ;
+    }
+    this.$store.dispatch('getUserInfos');
+  },
+  computed: {
+    ...mapState({
+      user: 'userInfos',
+    })
+  },
+  methods: {
+    logout: function () {
+      this.$store.commit('logout');
+      this.$router.push('/');
+    }
+  }
+}
 </script>
 
 <style scoped>

@@ -77,11 +77,17 @@ export default{
   },
   methods:{
     createAccount: function (){
+      const self = this;
       this.$store.dispatch('createAccount', {
         pseudo: this.pseudo,
         email: this.email,
         password: this.password,
-      })
+      }).then(function (){
+      self.login;
+        
+      }, function (error){
+        console.log(error);
+      } )
     }
   }
   
