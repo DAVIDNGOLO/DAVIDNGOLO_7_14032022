@@ -33,7 +33,7 @@ exports.signup = (req, res, next) => {
 
 exports.login = (req, res, next) => {
   
-  User.findOne({ email: MaskData.maskEmail2(req.body.email, emailMask2Options) })
+  User.findOne({ where : {email: req.body.email} })
     .then((user) => {
       if (!user) {
         return res.status(401).json({ error: "Utilisateur non trouvé !" });

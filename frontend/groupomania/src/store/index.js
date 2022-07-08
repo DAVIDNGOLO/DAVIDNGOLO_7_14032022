@@ -31,7 +31,7 @@ const store = createStore ({
           instance.post('/login', userInfos)
             .then(function (response) {
               commit('setStatus', '');
-              commit('logUser', 'response.data');
+              commit('logUser', response.data);
               resolve(response);
             })
             .catch(function (error) {
@@ -56,6 +56,7 @@ const store = createStore ({
           });
         
         },
+       
     }
 
 })

@@ -83,7 +83,7 @@ export default{
         email: this.email,
         password: this.password,
       }).then(function (){
-      self.login;
+      self.$router.push('/signin');
         
       }, function (error){
         console.log(error);
