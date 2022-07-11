@@ -3,13 +3,13 @@
     <img alt="groupomania logo" src="../assets/icon-left-font.png" />
     <div class="logoSignin">
       <p class="acceuilSignin">
-        Bienvenue {{ }}
+        Bienvenue 
       </p>
     </div>
     
     
     <div>
-      <input class="Bouton" 
+      <input @click="logout()" class="Bouton" 
        type="button"
        value="Déconnexion">
     </div>
@@ -22,6 +22,7 @@
 
 <script>
 
+
 export default {
   name: 'ProfilView',
   mounted: function () {
@@ -30,8 +31,14 @@ export default {
       this.$router.push('/'); 
       return;
      }
-     
+     this.$store.dispatch('getUserInfos');
   }, 
+  
+  methods:{
+    logout: function (){     
+      this.$router.push('/signin');
+    },
+  }
 }
 </script>
 
