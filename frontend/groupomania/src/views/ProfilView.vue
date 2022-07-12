@@ -3,7 +3,7 @@
     <img alt="groupomania logo" src="../assets/icon-left-font.png" />
     <div class="logoSignin">
       <p class="acceuilSignin">
-        Bienvenue 
+        Bienvenue {{user.pseudo}} <br> ({{user.email}})
       </p>
     </div>
     
@@ -22,7 +22,7 @@
 
 <script>
 
-
+import { mapState } from 'vuex'
 export default {
   name: 'ProfilView',
   mounted: function () {
@@ -33,10 +33,16 @@ export default {
      }
      this.$store.dispatch('getUserInfos');
   }, 
+  computed: {
+    ...mapState({
+      user: 'userInfos',
+    })
+  },
   
   methods:{
-    logout: function (){     
-      this.$router.push('/signin');
+    logout: function (){   
+      this.$store.commit('logout');  
+      this.$router.push('/');
     },
   }
 }

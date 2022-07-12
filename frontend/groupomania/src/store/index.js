@@ -14,7 +14,7 @@ if(!user){
   }; 
 } else {
   try{user = JSON.parse(user);
-    axios.defaults.headers.common['Authorization'] = user.token;
+    instance.defaults.headers.common['Authorization'] = user.token;
   }catch (ex) {
     user = {
       userId: -1,
@@ -50,6 +50,14 @@ const store = createStore ({
       userInfos: function (state, userInfos){
         state.userInfos = userInfos;
       },
+      logout: function (state) {
+        state.user = {
+          userId: -1,
+          token: '',
+        }
+        localStorage.removeItem('user');
+       
+      }
     },
     actions: {
       login: ({ commit }, userInfos) => {
@@ -84,7 +92,7 @@ const store = createStore ({
           });       
         },
         getUserInfos : ({commit}) =>{
-          instance.get('/infos/:id')
+          instance.get('/infos/1')
               .then(function (response) {
                 commit('userInfos', response.data);
                

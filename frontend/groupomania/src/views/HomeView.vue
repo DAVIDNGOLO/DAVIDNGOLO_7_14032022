@@ -64,6 +64,7 @@ export default{
 
     }
   },
+  
   computed: {
     validatedFields: function () {
       
@@ -75,6 +76,7 @@ export default{
       }
     }
   },
+
   methods:{
     createAccount: function (){
       const self = this;
